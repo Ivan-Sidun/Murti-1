@@ -145,7 +145,10 @@ class App :
         df = pd.DataFrame(data_output, columns=self.data.columns)
         
         if 'month_cos' in self.data.columns:
-            df['Місяць(1-12)'] = self.data_copy['Місяць(1-12)'] + 1
+            if self.data_copy['Місяць(1-12)'].sum() == 12:
+                df['Місяць(1-12)'] = 1
+            else:
+                df['Місяць(1-12)'] = self.data_copy['Місяць(1-12)'] + 1
             df = df.drop(columns='month_sin')
             df = df.drop(columns='month_cos')
             month_column = df.pop('Місяць(1-12)')

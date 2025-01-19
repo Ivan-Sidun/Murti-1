@@ -66,7 +66,7 @@ class App :
         ])
         model.compile(optimizer="adam", loss="mse")
         #Here i stopped today
-        history = model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=50, batch_size=32)
+        history = model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=150, batch_size=32)
         model.save("trained_model_month.h5")
         joblib.dump(scaler, "scaler_RNN.pkl")
         
@@ -79,6 +79,10 @@ class App :
                 messagebox.showerror('Error',f"Помилка {e}")
         else:
             defolt_filename = 'Data/def_data_base.csv'
+            if "Місяць(1-12)" in defolt_filename.columns:
+                self.data['month_sin'] = np.sin(2 * np.pi * self.data['Місяць(1-12)'] / 12)
+                self.data['month_cos'] = np.cos(2 * np.pi * self.data['Місяць(1-12)'] / 12)
+                self.data = self.data.drop(columns=["Місяць(1-12)"])
             data = pd.read_csv(defolt_filename)
             self.model_body(data)
             messagebox.showinfo(f'модель навченно на {defolt_filename}')
