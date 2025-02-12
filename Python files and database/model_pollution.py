@@ -60,7 +60,7 @@ class App :
 
         model.compile(optimizer='adam', loss='mse')
 
-        model.fit(X_train_scaled, y_train_scaled, validation_data=(X_test_scaled, y_test_scaled), epochs=150, batch_size=32)
+        model.fit(X_train_scaled, y_train_scaled, validation_data=(X_test_scaled, y_test_scaled), epochs=500, batch_size=32)
 
         model.save('model_pollution.h5')
         joblib.dump(scaler_X, 'scaler_x_pollution.pkl')
@@ -82,7 +82,7 @@ class App :
     def Stop(event=None):
         root.destroy()
     
-    
+
 root = tk.Tk()
 root.geometry("500x500")
 root.title("Murti_pollution")
