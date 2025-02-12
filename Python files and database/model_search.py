@@ -11,6 +11,7 @@ import keras
 class App :
     def __init__(self, frame, event=None):
         self.data = None
+        self.way = None
 
         button1 = tk.Button(frame, text="Обрати базу даних", command=lambda: self.take_base(), bg="white", fg="black")
         button1.grid(row=0, column=0, padx=20)
@@ -26,6 +27,7 @@ class App :
             filetypes=[("CSV files", "*.csv")],
             title="Оберіть базу даних"
         )
+        self.way = base_way
 
         if base_way:
             self.data = pd.read_csv(base_way)
@@ -65,23 +67,23 @@ class App :
     def train_model(self, event=None):
         if self.data is not None:
             self.model_body(self.data)
+            messagebox.showinfo('Some', f'model was studied on {self.way}')
         else:
+            defolt_filename = 'Data/def_data_base.csv'
             data = pd.read_csv('Data/def_data_base.csv')
             self.model_body(data)
-            messagebox.showinfo('Some', f'model was studied on {data}')
+            messagebox.showinfo('Some', f'model was studied on {defolt_filename}')
 
     def Stop(event=None):
         root.destroy()
 
-icon_path = "Icos/ico_csv.ico"
 
 root = tk.Tk()
 root.geometry("500x500")
-root.title("Навчання моделі")
-root.configure(bg="lightblue")
-root.iconbitmap(icon_path)
+root.title("Murti_search")
+root.configure(bg="#FF1493")
 
-frame = tk.Frame(root, bg="lightblue")
+frame = tk.Frame(root, bg="#FF1493")
 frame.pack(pady=50)
 
 app = App(frame)

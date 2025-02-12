@@ -4,7 +4,6 @@ from tkinter import filedialog
 import os
 
 
-icon_path = "Icos/ico_ex.ico"
 data = {
     'Місяць(1-12)': [None],
     'Середня температура повітря (°C)': [None],
@@ -28,7 +27,6 @@ root = tk.Tk()
 root.geometry("500x500")
 root.title("Створення фалу для моделі")
 root.configure(bg="lightblue")
-root.iconbitmap(icon_path)
 
 
 def create(data):

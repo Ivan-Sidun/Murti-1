@@ -19,8 +19,11 @@ class App :
         button2 = tk.Button(frame, text="Навчити модель", command=lambda: self.train_model(), bg="white", fg="black")
         button2.grid(row=1, column=0, padx=20)
 
+        button4 = tk.Button(frame, text="Збити базу даних", command=lambda: self.Data_zero(), bg="white", fg="black")
+        button4.grid(row=2, column=0, padx=20)
+    
         button3 = tk.Button(frame, text="Закрити програму", command=lambda: self.Stop(), bg="white", fg="black")
-        button3.grid(row=2, column=0, padx=20)
+        button3.grid(row=3, column=0, padx=20)
     
     def take_base(self):
         base_way = filedialog.askopenfilename(
@@ -66,8 +69,8 @@ class App :
         ])
         model.compile(optimizer="adam", loss="mse")
         #Here i stopped today
-        history = model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=150, batch_size=32)
-        model.save("trained_model_month.h5")
+        history = model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=50, batch_size=32)
+        model.save("for_video.h5")
         joblib.dump(scaler, "scaler_RNN.pkl")
         
     def train_model(self):
@@ -79,25 +82,30 @@ class App :
                 messagebox.showerror('Error',f"Помилка {e}")
         else:
             defolt_filename = 'Data/def_data_base.csv'
-            if "Місяць(1-12)" in defolt_filename.columns:
+            self.data = pd.read_csv(defolt_filename)
+            if "Місяць(1-12)" in self.data.columns:
                 self.data['month_sin'] = np.sin(2 * np.pi * self.data['Місяць(1-12)'] / 12)
                 self.data['month_cos'] = np.cos(2 * np.pi * self.data['Місяць(1-12)'] / 12)
                 self.data = self.data.drop(columns=["Місяць(1-12)"])
             data = pd.read_csv(defolt_filename)
             self.model_body(data)
-            messagebox.showinfo(f'модель навченно на {defolt_filename}')
+            messagebox.showinfo('Message', f'модель навченно на {defolt_filename}')
+
+    def Data_zero(self, event=None):
+        try:
+            self.data = None
+            messagebox.showinfo('sucess', 'data=None:)')
+        except Exception as e:
+            messagebox.showerror('error', f'That was an error:{e}')
     
     def Stop(event=None):
         root.destroy()
     
 
-icon_path = "Icos/ico_csv.ico"
-
 root = tk.Tk()
 root.geometry("500x500")
-root.title("Murti_learning")
+root.title("Murti_standart")
 root.configure(bg="lightblue")
-root.iconbitmap(icon_path)
 
 frame = tk.Frame(root, bg="lightblue")
 frame.pack(pady=50)

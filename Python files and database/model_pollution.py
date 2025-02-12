@@ -12,6 +12,7 @@ import keras
 class App :
     def __init__(self, frame):
         self.data = None
+        self.way = None
 
         button1 = tk.Button(frame, text="Обрати базу даних", command=lambda: self.take_base(), bg="white", fg="black")
         button1.grid(row=0, column=0, padx=20)
@@ -27,6 +28,7 @@ class App :
             filetypes=[("CSV files", "*.csv")],
             title="Оберіть базу даних"
         )
+        self.way = base_way
         if base_way:
             self.data = pd.read_csv(base_way)
             if "Місяць(1-12)" in self.data.columns:
@@ -68,28 +70,25 @@ class App :
         if self.data is not None:
             try :
                 self.model_body(self.data)
-                messagebox.showinfo('Hi',f'модель навченно на {self.data}')
+                messagebox.showinfo('Hi',f'модель навченно на {self.way}')
             except Exception as e:
                 messagebox.showerror('Error',f"Помилка {e}")
         else:
             defolt_filename = 'Data/observations_ingulec.csv'
             data = pd.read_csv(defolt_filename)
             self.model_body(data)
-            messagebox.showinfo(f'модель навченно на {defolt_filename}')
+            messagebox.showinfo('Message', f'модель навченно на {defolt_filename}')
     
     def Stop(event=None):
         root.destroy()
     
-
-icon_path = "Icos/ico_csv.ico"
-
+    
 root = tk.Tk()
 root.geometry("500x500")
 root.title("Murti_pollution")
-root.configure(bg="lightblue")
-root.iconbitmap(icon_path)
+root.configure(bg="#00FA9A")
 
-frame = tk.Frame(root, bg="lightblue")
+frame = tk.Frame(root, bg="#00FA9A")
 frame.pack(pady=50)
 
 app = App(frame)

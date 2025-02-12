@@ -5,14 +5,11 @@ from tkinter import filedialog, messagebox
 import os
 
 
-icon_path = "Icos/ico_csv.ico"
-
 
 root = tk.Tk()
 root.geometry("500x500")
 root.title("CSV операції")
 root.configure(bg="lightblue")
-root.iconbitmap(icon_path)
 
 frame = tk.Frame(root, bg="lightblue")
 frame.pack(pady=50)

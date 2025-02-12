@@ -296,13 +296,11 @@ class App :
     def Stop(element=None):
         root.destroy()
 
-icon_path = "Icos/ico_csv.ico"
 
 root = tk.Tk()
 root.geometry("800x500")
 root.title("Murti")
 root.configure(bg="lightblue")
-root.iconbitmap(icon_path)
 
 frame = tk.Frame(root, bg="lightblue")
 frame.pack(pady=50)
