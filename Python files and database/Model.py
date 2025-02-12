@@ -69,8 +69,8 @@ class App :
         ])
         model.compile(optimizer="adam", loss="mse")
         #Here i stopped today
-        history = model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=50, batch_size=32)
-        model.save("for_video.h5")
+        history = model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=500, batch_size=32)
+        model.save("trained_model_month.h5")
         joblib.dump(scaler, "scaler_RNN.pkl")
         
     def train_model(self):
