@@ -53,14 +53,15 @@ class App :
 
         model = keras.models.Sequential([
             keras.layers.Dense(128, activation='relu', input_dim=X_train_scaled.shape[1]),
-            keras.layers.Dropout(0.2),
+            keras.layers.Dropout(0.1),
             keras.layers.Dense(64, activation='relu'),
+            keras.layers.Dropout(0.3),
             keras.layers.Dense(y_train_scaled.shape[1])
         ])
 
         model.compile(optimizer='adam', loss='mse')
 
-        model.fit(X_train_scaled, y_train_scaled, validation_data=(X_test_scaled, y_test_scaled), epochs=1000, batch_size=32)
+        model.fit(X_train_scaled, y_train_scaled, validation_data=(X_test_scaled, y_test_scaled), epochs=500, batch_size=32)
 
         model.save('model_pollution.h5')
         joblib.dump(scaler_X, 'scaler_x_pollution.pkl')
